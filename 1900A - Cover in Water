@@ -1,0 +1,19 @@
+t = int(input())
+  for _ in range(t):
+      n = int(input())
+      s = input()
+      ans = 0
+      i = 0
+      while i < n:
+          if s[i] == '.':
+              cnt = 0
+              while i < n and s[i] == '.':
+                  cnt += 1
+                  i += 1
+              if cnt > 2:
+                  ans = 2
+                  break
+              ans += cnt
+              i -= 1
+          i += 1
+      print(ans)
