@@ -1,0 +1,18 @@
+def solve(a, x):
+    n = len(a)
+    # Maximum distance between two gas stations
+    max_dist_between_2_gas_station = max(a[0], 2 * (x - a[-1]))
+    for i in range(1, n):
+        max_dist_between_2_gas_station = max(max_dist_between_2_gas_station, a[i] - a[i - 1])
+    return max_dist_between_2_gas_station
+
+def main():
+    t = int(input())
+    for _ in range(t):
+        n, x = map(int, input().split())
+        a = list(map(int, input().split()))
+        res = solve(a, x)
+        print(res)
+
+if __name__ == "__main__":
+    main()
