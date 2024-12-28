@@ -1,0 +1,12 @@
+for _ in range(int(input())):
+    m,n = map(int, input().split())
+    a = list(map(int, input().split()))
+    k = min(a)
+    if n == 1:
+        r = sorted(a)
+        if a != r:
+            print('NO')
+        else:
+            print('YES')
+    else:
+        print('YES')
