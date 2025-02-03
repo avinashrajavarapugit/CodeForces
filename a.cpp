@@ -1,34 +1,43 @@
 // Source: Avinash
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+
 
 class Solution {
 public:
     void solve() {
-        int a1, a2, a4, a5;
-        cin >> a1 >> a2 >> a4 >> a5;
-        
-        int maxFib = 0;
-    
-        vector<int> possibleA3 = {
-            a1 + a2,      
-            a4 - a2,      
-            a5 - a4       
-        };
-        
-        for (int a3 : possibleA3) {
-            int fibCount = 0;
-            
-            if (a1 + a2 == a3) fibCount++;
-            
-            if (a2 + a3 == a4) fibCount++;
-            
-            if (a3 + a4 == a5) fibCount++;
-            
-            maxFib = max(maxFib, fibCount);
+        // code here
+        ll n;
+        cin >> n;
+        vector<int> a(n);
+        for(int i = 0; i < n; i++){
+            cin >> a[i];
+        }
+        vector<int> b(n);
+        for(int i = 0; i < n; i++){
+            cin >> b[i];
+        }
+        // find no of distint ele in vector a and vector b
+        //if atleast 2 ele break in a and b
+        set<int> res;
+        for(int i = 0; i < n; i++) {
+            res.insert(a[i] + b[i]);
         }
         
-        cout << maxFib << "\n";
+        for(int i = 0; i < n; i++) {
+            for(int j = i + 1; j < n; j++) {
+                swap(a[i], a[j]);
+                res.insert(a[i] + b[i]);
+                res.insert(a[j] + b[j]);
+                swap(a[i], a[j]); // swap back
+            }
+        }
+        if(res.size() >= 3) {
+            cout << "YES\n";
+        } else {
+            cout << "NO\n";
+        }
     }
 };
 

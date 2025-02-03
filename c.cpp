@@ -1,44 +1,54 @@
+// Source: Avinash
 #include <bits/stdc++.h>
 using namespace std;
 
+#define ll long long
 class Solution {
 public:
     void solve() {
-        int t;
-        cin >> t;
-        while (t--) {
-            int n, k;
-            cin >> n >> k;
-            vector<int> x(n);
-            unordered_map<int, int> freq;
-
-            for (int i = 0; i < n; i++) {
-                cin >> x[i];
-                freq[x[i]]++;
+        // code here
+        int n;
+        cin >> n;
+        vector<vector<int>> a(n, vector<int>(n));
+        
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                cin >> a[i][j];
             }
+        }
+        vector<vector<int>> dp(n+1, vector<int>(n+1, 0));
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++)
+            {
+                dp[i][j + 1] = dp[i][j] + a[i][n - 1 - j];
+            }
+        }
 
-            int score = 0;
-            for (auto &[num, count] : freq) {
-                int complement = k - num;
-                if (freq.find(complement) != freq.end()) {
-                    if (num == complement) {
-                        score += count / 2;
-                    } else {
-                        int pairs = min(count, freq[complement]);
-                        score += pairs;
-                        freq[complement] -= pairs;
-                        freq[num] -= pairs;
-                    }
+        int res = -1;
+        int mx = n;
+        for(int i = 0; i< mx; i++){
+            int ans = 0;
+            for(int j = 0; j< n; j++){
+                if(dp[j][i] == i){
+                    ans += 1;
                 }
             }
-
-            cout << score << "\n";
+            if(ans != 0){
+                res = i;
+            }
+            mx = min(mx, i + ans);
         }
+        cout << res + 1 << endl;
+
     }
 };
 
 int main() {
-    Solution obj;
-    obj.solve();
+    int t;
+    cin >> t;
+    while (t--) {
+        Solution obj;
+        obj.solve();
+    }
     return 0;
 }
